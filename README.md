@@ -79,12 +79,6 @@ Summary
 This project impacts both operational and strategic stakeholders. It helps the marketing and sales teams improve campaign efficiency, enables leadership to increase profitability, and enhances customer experience through smarter, data-driven targeting.
 
 
-What value does yout project bring to the industry?
-How will you answer your business question with your chosen dataset?
-What are the risks and uncertainties?
-What methods and technologies will you use?
-
-
 ## Setup
 
 ```bash
