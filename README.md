@@ -79,6 +79,34 @@ Summary
 This project impacts both operational and strategic stakeholders. It helps the marketing and sales teams improve campaign efficiency, enables leadership to increase profitability, and enhances customer experience through smarter, data-driven targeting.
 
 
+
+## Risks and Uncertainties:   
+
+## Risks
+1. Data leakage
+2. Incorrect labels
+3. outdated customer information
+4. False positives
+
+## Uncertainties
+1. Calibrartion may be off
+2. feature instability
+3. Regulatory Risk
+
+## Technology: We would use
+1. Python
+2. scikit-learn
+3. MLflow 
+4. Postgres
+5. Docker
+
+
+## Libraries:
+1. sklearn
+2. pandas
+3. numpy
+
+
 ## Setup
 
 ```bash
