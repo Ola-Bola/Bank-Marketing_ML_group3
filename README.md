@@ -150,3 +150,14 @@ The only adjustment needed is **dropping `duration`** (data leakage) before trai
 - **Cellular contact** outperforms telephone landline.
 - **Diminishing returns on campaign contacts:** More than 3–4 calls in a campaign generally reduces conversion rates.
 - **`duration` inflates accuracy** — when included (incorrectly), models appear near-perfect; once removed, realistic performance emerges.
+
+## What value does your project bring to the industry?
+The project is directed towards driving revenue efficiency and cost optimization for the Bank. Instead of running blind marketing campaigns which could be expensive and even result in low return on investment (ROI), the model enables precision targeting, which identifies customers' most likely to subscribe to a term deposit. This will in-turn result in higher conversion rates, lower acquisition costs, reduced customer fatigue and increase in marketing campaign ROI.
+
+## How will you answer your business question with your chosen datasets?
+a. By using demographic, financial and campaign features as predictors.
+b. By training the classification model to estimate probability of subscription (Yes/No).
+c. Evaluate with accuracy, precision/recall, and ROC-AUC to ensure reliable targeting.
+d. Rank customers by likelihood score.
+e. Prioritize campaign to the top segment only.
+We are simply converting raw customer data into a decision engine that tells the bank exactly who to call, when and why.
