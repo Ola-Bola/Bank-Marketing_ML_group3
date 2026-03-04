@@ -1,0 +1,116 @@
+services:
+
+  # ── PostgreSQL ────────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: bank_marketing_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bank_marketing
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Initialise both app DB and MLflow DB on first start
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      # Host port 5433 avoids conflict with any local PostgreSQL on 5432
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+
+  # ── MLflow tracking server ────────────────────────────────────────────────────
+  mlflow:
+    image: python:3.11-slim
+    container_name: bank_marketing_mlflow
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      MLFLOW_BACKEND_STORE_URI: postgresql://mlflow:mlflow@postgres:5432/mlflow
+      MLFLOW_DEFAULT_ARTIFACT_ROOT: /mlflow/artifacts
+      # MLflow 3.x security middleware: allow all hosts when running inside Docker
+      MLFLOW_ALLOWED_HOSTS: "*"
+    volumes:
+      - mlflow_artifacts:/mlflow/artifacts
+    ports:
+      - "5000:5000"
+    # Use list form to avoid shell quoting issues with --allowed-hosts.
+    # --disable-security-middleware is safe inside Docker (no shared-machine risk).
+    command:
+      - bash
+      - -c
+      - |
+        pip install mlflow psycopg2-binary --quiet &&
+        mlflow server \
+          --backend-store-uri postgresql://mlflow:mlflow@postgres:5432/mlflow \
+          --default-artifact-root /mlflow/artifacts \
+          --host 0.0.0.0 \
+          --port 5000 \
+          --disable-security-middleware
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 15s
+      timeout: 10s
+      retries: 8
+      start_period: 60s
+    networks:
+      - app_network
+
+  # ── pgAdmin (DB browser) ──────────────────────────────────────────────────────
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: bank_marketing_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@bankmarketing.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - app_network
+    profiles:
+      - tools  # start with: docker compose --profile tools up
+
+  # ── ML pipeline (run once; not a long-lived service) ─────────────────────────
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bank_marketing_pipeline
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mlflow:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: postgres
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./reports:/app/reports
+    command: ["python", "-m", "scripts.run_pipeline", "--all"]
+    networks:
+      - app_network
+    profiles:
+      - pipeline  # start with: docker compose --profile pipeline up
+
+volumes:
+  postgres_data:
+  mlflow_artifacts:
+  pgadmin_data:
+
+networks:
+  app_network:
+    driver: bridge
