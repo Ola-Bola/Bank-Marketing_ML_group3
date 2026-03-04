@@ -1,0 +1,69 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ── Virtual environments ───────────────────────────────────────────────────────
+.venv/
+venv/
+ENV/
+env/
+.env/
+
+# ── uv ────────────────────────────────────────────────────────────────────────
+# Keep uv.lock committed so installs are reproducible
+# .uv/  ← intentionally not ignored
+
+# ── Environment / secrets ──────────────────────────────────────────────────────
+.env
+!.env.example
+
+# ── Data files (large / raw data — tracked via DVC or re-downloaded) ──────────
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# ── Trained model artifacts ───────────────────────────────────────────────────
+models/*
+!models/.gitkeep
+
+# ── MLflow local artifacts ────────────────────────────────────────────────────
+mlruns/
+mlartifacts/
+
+# ── Jupyter Notebooks ─────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ── Testing / coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# ── Linting ───────────────────────────────────────────────────────────────────
+.ruff_cache/
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/
