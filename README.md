@@ -107,6 +107,12 @@ The notebook kernel is registered as **"Python (bank_marketing)"** — select it
 
 **Verdict:** The dataset is clean in the traditional sense (no nulls, no duplicates) but requires careful handling of encoded missing values, outliers, class imbalance, and the leakage variable `duration`.
 
+##  After deeper research, below are the data values
+##  Column ,   No of  missing_count,  missing_pct
+    job,            288,                 0.64
+    education,      1857,                4.11
+    contact,        13020,               28.8
+    poutcome,       36959,               81.75
 ---
 
 ## Q2 — What Are the Limitations?
@@ -161,3 +167,46 @@ c. Evaluate with accuracy, precision/recall, and ROC-AUC to ensure reliable targ
 d. Rank customers by likelihood score.
 e. Prioritize campaign to the top segment only.
 We are simply converting raw customer data into a decision engine that tells the bank exactly who to call, when and why.
+
+##  Analytical Plan
+To address the business problem, the project follows a structured machine learning workflow.
+1. Exploratory Data Analysis (EDA)
+Initial data exploration will be conducted to understand:
+data distributions
+correlations between features
+class imbalance in the target variable
+potential data quality issues
+Visualizations and summary statistics will help identify patterns and guide feature selection.
+
+2. Data Preprocessing
+This stage includes:
+Handling missing values
+encoding categorical variables
+scaling numerical features where appropriate
+splitting the dataset into training and testing sets
+
+3. Handling Class Imbalance
+Since the dataset contains significantly fewer positive subscription cases, techniques such as:
+class weighting
+resampling methods (oversampling or undersampling)
+may be applied to improve model performance.
+
+4. Baseline Modelling
+A baseline model (such as Logistic Regression) will be implemented to establish a reference performance level.
+
+5. Model Training
+Additional machine learning models may be tested and compared, such as:
+Decision Trees
+Random Forest
+Gradient Boosting models
+
+6. Model Evaluation
+Model performance will be evaluated using metrics suitable for classification problems, including:
+Accuracy
+Precision
+Recall
+F1-score
+ROC-AUC
+
+7. Cross-Validation
+Cross-validation will be used to ensure the model generalizes well and does not overfit the training data.
