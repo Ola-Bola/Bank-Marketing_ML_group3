@@ -1,287 +1,467 @@
-# Bank-Marketing_ML_group3
-Who are your stakeholders and why do they care about your project?
+# Bank Marketing — Term Deposit Subscription Predictor
 
-Several key stakeholders are involved in and affected by this project:
-
-1️⃣ Marketing Department
-
-Why they care:
-The marketing team is responsible for running direct marketing campaigns. They care because the model helps them:
-
-Target customers more effectively
-
-Increase conversion rates
-
-Reduce unnecessary calls
-
-Improve campaign ROI
-
-With predictive insights, they can prioritize high-probability customers instead of contacting everyone.
-
-2️⃣ Sales / Call Center Teams
-
-Why they care:
-Call center agents interact directly with customers. They benefit from:
-
-Higher success rates per call
-
-Reduced time spent on low-probability leads
-
-Improved productivity
-
-Better customer interactions
-
-A predictive model helps them focus on customers more likely to subscribe.
-
-3️⃣ Senior Management / Executives
-
-Why they care:
-Executives focus on profitability and strategic decision-making. They care about:
-
-Increased revenue from higher subscription rates
-
-Reduced operational costs
-
-Data-driven business strategy
-
-Competitive advantage
-
-This project supports more efficient allocation of marketing resources.
-
-4️⃣ Data & Analytics Team
-
-Why they care:
-The analytics team is responsible for developing and maintaining the model. They care about:
-
-Model performance and reliability
-
-Scalability and deployment
-
-Ensuring fairness and reducing bias
-
-They ensure the model produces actionable insights responsibly.
-
-5️⃣ Customers
-
-Why they care:
-Customers are indirectly affected. They benefit from:
-
-More relevant offers
-
-Fewer unnecessary calls
-
-Improved customer experience
-
-Better targeting reduces intrusive marketing.
-
-Summary
-
-This project impacts both operational and strategic stakeholders. It helps the marketing and sales teams improve campaign efficiency, enables leadership to increase profitability, and enhances customer experience through smarter, data-driven targeting.
-
-Dataset Identification
-This project uses the UCI Bank Marketing Dataset, which is publicly available through the UCI Machine Learning Repository.
-
-# Dataset source:
-https://archive.ics.uci.edu/ml/datasets/bank+marketing
-The dataset contains information related to direct marketing campaigns conducted by a Portuguese banking institution. The goal is to predict whether a client will subscribe to a term deposit.
-Key characteristics of the dataset:
-• Number of records: 41,188 client interactions
-• Number of variables: 20 input features + 1 target variable
-• Target variable: y (whether the client subscribed to a term deposit: yes/no)
-• Time period: Campaign data collected between 2008 and 2010
-• Feature types include:
-Demographic attributes (age, job, marital status, education)
-Financial indicators (housing loan, personal loan, credit default)
-Marketing campaign information (number of contacts, previous outcomes)
-Contact communication details (month, day of week, contact type)
-This dataset was selected because it directly reflects a real-world banking marketing problem and provides sufficient observations for building and evaluating machine learning models.
-
-## Business Context
-The business objective of this project is to help financial institutions improve the effectiveness of marketing campaigns for term deposit products.
-Traditional marketing campaigns often rely on mass phone calls to clients, which can be expensive and inefficient. Many calls are made to customers who are unlikely to subscribe to the product.
-By applying machine learning techniques, this project aims to predict which customers are most likely to subscribe, allowing banks to:
-- focus marketing efforts on high-probability clients;
-- reduce operational costs;
-- increase campaign conversion rates;
-- support data-driven marketing strategies.
-
-## Analytical Plan
-To address the business problem, the project follows a structured machine learning workflow.
-
-1. Exploratory Data Analysis (EDA)
-
-Initial data exploration will be conducted to understand:
-- data distributions;
-- correlations between features;
-- class imbalance in the target variable;
-- potential data quality issues.
-
-Visualizations and summary statistics will help identify patterns and guide feature selection.
-
-2. Data Preprocessing
-
-This stage includes:
-- handling missing values;
-- encoding categorical variables;
-- scaling numerical features where appropriate;
-- splitting the dataset into training and testing sets.
-
-3. Handling Class Imbalance
-
-Since the dataset contains significantly fewer positive subscription cases, techniques such as:
-- class weighting
-- resampling methods (oversampling or undersampling)
-may be applied to improve model performance.
-
-4. Baseline Modelling
-A baseline model (such as Logistic Regression) will be implemented to establish a reference performance level.
-
-5. Model Training
-Additional machine learning models may be tested and compared, such as:
-- Decision Trees
-- Random Forest
-- Gradient Boosting models
-
-6. Model Evaluation
-Model performance will be evaluated using metrics suitable for classification problems, including:
-- Accuracy
-- Precision
-- Recall
-- F1-score
-- ROC-AUC
-
-7. Cross-Validation
-Cross-validation will be used to ensure the model generalizes well and does not overfit the training data.
-
-## Task Breakdown and Team Roles
-To ensure efficient collaboration and accountability, the project tasks are divided among four key roles. Each team member is responsible for a specific stage of the machine learning pipeline while collaborating with others throughout the project.
-
-Data Preparation & Quality Lead (Morolake Nwokoro)
-Responsibilities:
-- data ingestion and dataset validation;
-- data cleaning and preprocessing;
-- handling missing values and inconsistent records;
-- encoding categorical variables;
-- feature scaling and transformation;
-- preparing training and test datasets;
-- nsuring data quality throughout the pipeline.
-This role ensures that the dataset is clean, reliable, and ready for analysis and modelling.
-
-Exploratory Data Analysis (EDA) & Feature Engineering Lead (Anthony Chude)
-Responsibilities:
-- performing exploratory data analysis (EDA);
-- identifying patterns, correlations, and key variables;
-- creating visualizations to understand data distributions;
-- detecting class imbalance and potential biases;
-- designing new features to improve model performance;
-- providing insights that guide model development;
-This role helps uncover insights from the data and informs feature selection.
-
-Machine Learning Modelling Lead (Greg Ealeifo)
-Responsibilities:
-- mplementing baseline models;
-- training and tuning machine learning models;
-- comparing different algorithms;
-- performing cross-validation;
-- evaluating models using metrics such as precision, recall, F1-score, and ROC-AUC;
-- selecting the best performing model.
-This role focuses on developing predictive models and ensuring strong performance.
-
-ML Pipeline & Documentation Lead (Olga Drobushko)
-Responsibilities:
-- implementing the machine learning pipeline;
-- organizing project structure and codebase;
-- integrating experiment tracking and reproducibility tools;
-- managing version control using Git;
-- writing and maintaining the README documentation;
-- preparing project presentation and final report.
-
-This role ensures the project is reproducible, well-documented, and clearly communicated.
-## Setup
-
-```bash
-
-# Install dependencies (already done if you used the venv)
-pip install ucimlrepo pandas numpy matplotlib seaborn scikit-learn jupyter ipykernel
-
-# Launch Jupyter
-jupyter notebook bank_marketing_analysis.ipynb
-```
-
-The notebook kernel is registered as **"Python (bank_marketing)"** — select it from the kernel menu.
+> **ML Classification Project** · University of Toronto Data Sciences Institute · Group 3
 
 ---
 
-## Q1 — Is the Dataset Clean?
+## Contents
 
-**Short answer: Structurally yes; practically, it needs preprocessing.**
+- [Overview](#overview)
+- [Business Question & Impact](#business-question--impact)
+- [Stakeholders](#stakeholders)
+- [Dataset](#dataset)
+- [Analytical Approach](#analytical-approach)
+- [Key Results](#key-results)
+- [Project Structure](#project-structure)
+- [Tech Stack](#tech-stack)
+- [Quick Start](#quick-start)
+- [Pipeline Steps](#pipeline-steps)
+- [MLflow Experiment Tracking](#mlflow-experiment-tracking)
+- [Key Findings](#key-findings)
+- [Dataset Limitations](#dataset-limitations)
+- [Ethical Considerations](#ethical-considerations)
+- [Reproducing the Results](#reproducing-the-results)
+- [Changes from Original Project Plan](#changes-from-original-project-plan)
+- [Team Collaboration](#team-collaboration)
+- [Team](#team)
+
+---
+
+## Overview
+
+This project builds an end-to-end **binary classification pipeline** to predict whether a bank client will subscribe to a term deposit product. The full pipeline covers automated data ingestion, cleaning, feature engineering, model training with experiment tracking, and evaluation — all containerised and reproducible.
+
+**The core problem:** A Portuguese bank ran 45,211 marketing calls over 2 years (2008–2010). Only **11.7%** of clients subscribed — meaning **88.3% of calls were wasted**. Our model identifies likely subscribers *before* the call is made.
+
+**Best result:** Random Forest achieves **ROC-AUC = 0.80**, delivering a **3.7× improvement** in call success rate and reducing wasted outreach by **86%**.
+
+---
+
+## Business Question & Impact
+
+> **Can we predict whether a client will subscribe to a term deposit, based on demographic, financial, and previous campaign details?**
+
+### Industry Value
+
+Traditional marketing campaigns rely on mass phone outreach — expensive, inefficient, and fatiguing to customers. This project converts raw customer data into a **decision engine** that tells the bank exactly who to call, when, and why. The result: higher conversion rates, lower acquisition costs, reduced customer fatigue, and a measurable increase in campaign ROI.
+
+### Quantified Business Impact
+
+| Scenario | Calls Made | Subscribers Found | Success Rate |
+|----------|-----------|-------------------|--------------|
+| **Without model** (call everyone) | 6,782 | 793 | 11.7% |
+| **With Random Forest** (top flagged) | 952 | 413 | **43.4%** |
+| **Improvement** | −86% calls | captures 52% of all subscribers | **3.7× better** |
+
+> Think of the model as a "smart call list" — instead of calling everyone, it ranks clients by likelihood to subscribe. Calling only the top-ranked 952 out of 6,782 still captures over half of all actual subscribers, while eliminating 5,830 wasted calls.
+
+---
+
+## Stakeholders
+
+| Stakeholder | Why They Care | What They Gain |
+|-------------|--------------|----------------|
+| **Marketing Department** | Responsible for campaign planning and ROI | Target high-probability clients; reduce wasted spend; improve conversion rates |
+| **Sales / Call Centre Teams** | Agents interact directly with customers | Higher success rate per call; less time on low-probability leads; better customer interactions |
+| **Senior Management / Executives** | Focus on profitability and strategic direction | Increased revenue, lower operational costs, data-driven resource allocation |
+| **Data & Analytics Team** | Responsible for model development and maintenance | Reliable, scalable, auditable pipeline with MLflow experiment tracking |
+| **Customers** | Indirectly affected by campaign outreach | Fewer irrelevant calls; more personalised, timely offers; improved experience |
+
+---
+
+## Dataset
+
+| Property | Value |
+|----------|-------|
+| Source | [UCI ML Repository — Bank Marketing (id=222)](https://archive.ics.uci.edu/dataset/222/bank+marketing) |
+| Rows | 45,211 client records |
+| Features | 16 input features (demographic, financial, campaign) |
+| Target | `subscribed` — did the client subscribe? (`yes` → 1 / `no` → 0) |
+| Class balance | **11.7% positive** — severely imbalanced |
+| Period | May 2008 – November 2010, Portuguese retail bank |
+
+### Class Imbalance
+
+![Target Distribution](reports/figures/target_distribution.png)
+
+Only 1 in 8.5 clients subscribed. Accuracy alone is misleading — we optimise for **ROC-AUC** and **F1**.
+
+### Feature Groups
+
+| Group | Features |
+|-------|----------|
+| **Demographic** | `age`, `job`, `marital`, `education` |
+| **Financial** | `balance` (avg yearly), `default`, `housing`, `loan` |
+| **Last contact** | `contact`, `month`, `day_of_week` |
+| **Campaign** | `campaign`, `pdays`, `previous`, `poutcome` |
+| **Engineered** | `previously_contacted` — binary flag from `pdays != 999` |
+| **Excluded** | `duration` — call length only known *after* the call; excluded to prevent data leakage |
+
+### Data Quality Check
 
 | Check | Result |
-|---|---|
-| NaN / null values | **None** — no standard missing values |
-| Duplicate rows | **None** detected |
-| Class imbalance | **~88% 'no' vs ~12% 'yes'** — significant imbalance |
-| Data leakage | **`duration`** (call length) is only known *after* the call ends and must be excluded from predictive models |
+|-------|--------|
+| Null / NaN values | None — no standard missing values |
+| Duplicate rows | None detected |
+| Encoded missing values | `"unknown"` strings in categorical columns → replaced with NaN for imputation |
+| Class imbalance | ~88% `no` vs ~12% `yes` — significant; accuracy alone is misleading |
+| Data leakage | `duration` (call length) known only after the call ends — excluded from all models |
 
-**Verdict:** The dataset is clean in the traditional sense (no nulls, no duplicates) but requires careful handling of encoded missing values, outliers, class imbalance, and the leakage variable `duration`.
-
-##  After deeper research, below are the data values
-##  Column ,   No of  missing_count,  missing_pct
-    job,            288,                 0.64
-    education,      1857,                4.11
-    contact,        13020,               28.8
-    poutcome,       36959,               81.75
 ---
 
-## Q2 — What Are the Limitations?
+## Analytical Approach
+
+The project follows a structured seven-step ML workflow:
+
+| Step | What We Did |
+|------|-------------|
+| **1. Exploratory Data Analysis** | Distributions, correlations, class imbalance plots, subscription rates by category |
+| **2. Data Preprocessing** | Drop `duration` (leakage), replace `"unknown"` with NaN, encode target, engineer `previously_contacted` flag, stratified 70/15/15 split |
+| **3. Handle Class Imbalance** | `class_weight='balanced'` for sklearn models; `scale_pos_weight=7` for XGBoost — simpler and less leak-prone than SMOTE |
+| **4. Baseline Model** | Logistic Regression establishes a transparent reference (ROC-AUC 0.7719) |
+| **5. Model Training** | Random Forest (n=300) and XGBoost trained inside sklearn pipelines with ColumnTransformer preprocessing |
+| **6. Evaluation** | ROC-AUC and F1 as primary metrics; confusion matrix, ROC curve, threshold analysis, and predictions saved to PostgreSQL |
+| **7. Cross-Validation** | 5-fold stratified CV on training set; final metrics reported on held-out test set |
+
+---
+
+## Key Results
+
+### Model Comparison
+
+![Model Comparison](reports/figures/model_comparison.png)
+
+| Model | ROC-AUC | F1 | Precision | Recall | Accuracy |
+|-------|--------|----|-----------|--------|----------|
+| Logistic Regression | 0.7719 | 0.378 | 0.269 | 0.637 | 0.755 |
+| **Random Forest** | **0.8036** | **0.471** | **0.432** | **0.517** | **0.864** |
+| XGBoost | 0.8022 | 0.463 | 0.381 | 0.590 | 0.840 |
+
+**Winner: Random Forest** — best ROC-AUC and most balanced precision/recall.
+
+### Best Model — ROC Curve & Confusion Matrix
+
+| ROC Curve | Confusion Matrix |
+|-----------|-----------------|
+| ![ROC Curve](reports/figures/roc_curve_random_forest.png) | ![Confusion Matrix](reports/figures/confusion_matrix_random_forest.png) |
+
+Random Forest on the held-out test set (6,782 clients):
+- **413 true positives** — subscribers correctly identified
+- **539 false positives** — non-subscribers incorrectly flagged
+- **380 false negatives** — missed subscribers
+- **5,450 true negatives** — non-subscribers correctly dismissed
+
+### What Drives Subscription?
+
+![Feature Importance](reports/figures/feature_importance_random_forest.png)
+
+Top drivers:
+1. **Account balance** — wealthier clients more likely to invest
+2. **Age** — middle-aged and retired clients subscribe most
+3. **Previous campaign outcome** — success in prior campaign → 64.7% repeat rate
+4. **Campaign contacts** — diminishing returns after 3 contacts
+5. **Days since last contact** — recent contacts are warmer leads
+
+### Subscription Rates by Category
+
+![Categorical Subscription Rates](reports/figures/categorical_subscription_rates.png)
+
+---
+
+## Project Structure
+
+```
+Bank-Marketing_ML_group3/
+├── data/
+│   ├── raw/                        # Raw UCI download (gitignored)
+│   ├── processed/                  # Cleaned train/val/test Parquet files (gitignored)
+│   └── sql/
+│       └── schema.sql              # PostgreSQL table definitions (4 tables)
+├── docker/
+│   └── postgres/
+│       └── init.sql                # DB init (creates mlflow DB on first start)
+├── experiments/
+│   └── notebooks/
+│       ├── 01_eda.ipynb            # Exploratory Data Analysis
+│       └── 02_model_experiments.ipynb
+├── models/                         # Saved model .pkl files (gitignored)
+├── reports/
+│   ├── figures/                    # All EDA and evaluation plots (PNG)
+│   ├── training_summary.csv        # Model metrics comparison
+│   ├── classification_report_*.txt # Per-model classification reports
+│   └── threshold_analysis_*.csv    # Precision/recall at different thresholds
+├── src/
+│   ├── config.py                   # Centralised settings (pydantic-settings)
+│   ├── data/
+│   │   ├── ingest.py               # UCI download → disk → PostgreSQL
+│   │   ├── preprocess.py           # Cleaning, encoding, train/val/test split
+│   │   └── database.py             # SQLAlchemy PostgreSQL client
+│   ├── features/
+│   │   └── build_features.py       # sklearn ColumnTransformer pipeline
+│   ├── models/
+│   │   ├── train.py                # MLflow-tracked training (3 classifiers)
+│   │   ├── evaluate.py             # Metrics, confusion matrix, ROC curve, DB write
+│   │   └── predict.py              # Inference — load model → predict
+│   └── visualization/
+│       └── plots.py                # EDA + model comparison charts
+├── scripts/
+│   ├── run_pipeline.py             # CLI orchestrator (--ingest/--preprocess/--train/--evaluate)
+│   ├── run_eda.py                  # Standalone EDA runner
+│   └── build_presentation.py       # Generate PPTX presentation
+├── README_folder/                  # Per-folder README documentation
+├── .env.example                    # Environment variable template
+├── .gitignore
+├── docker-compose.yml              # PostgreSQL + MLflow + pgAdmin services
+├── Dockerfile                      # Multi-stage app container
+├── Makefile                        # Convenience targets
+└── pyproject.toml                  # uv project config + dependencies
+```
+
+See [`README_folder/`](README_folder/) for detailed per-folder documentation.
+
+---
+
+## Tech Stack
+
+| Layer | Tool | Purpose |
+|-------|------|---------|
+| Language | Python 3.11 | Core language |
+| Dependency management | [uv](https://docs.astral.sh/uv/) | Fast, lockfile-based |
+| ML | scikit-learn, XGBoost | Model training |
+| Experiment tracking | MLflow 3.10 | Run logging, model registry |
+| Database | PostgreSQL 16 | Data persistence (4 tables) |
+| ORM | SQLAlchemy 2 | DB access layer |
+| Visualisation | matplotlib, seaborn, plotly | Charts and figures |
+| Containers | Docker + Docker Compose | Reproducible infrastructure |
+| Notebooks | Jupyter Lab | EDA and exploration |
+
+### PostgreSQL Tables
+
+| Table | Rows | Contents |
+|-------|------|----------|
+| `raw_features` | 45,211 | Original UCI dataset as ingested |
+| `processed_features` | 45,211 | Cleaned features as JSONB, split labels |
+| `experiment_results` | 3 | Per-model metrics, MLflow run IDs, params |
+| `predictions` | 20,346 | Test-set predictions for all 3 models |
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) — Python package manager
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) — for infrastructure
+- Python 3.11+
+
+### Step 1 — Install dependencies
+
+```bash
+git clone <repo-url>
+cd Bank-Marketing_ML_group3
+uv sync
+cp .env.example .env
+```
+
+### Step 2 — Start infrastructure
+
+```bash
+docker compose build mlflow        # first time only — bakes pip install into image
+docker compose up -d postgres mlflow
+# Wait ~30 seconds for MLflow to start
+# MLflow UI: http://localhost:5000
+# PostgreSQL: localhost:5432
+```
+
+### Step 3 — Run the pipeline
+
+```bash
+# All steps in sequence:
+uv run python -m scripts.run_pipeline --ingest
+uv run python -m scripts.run_pipeline --preprocess
+uv run python -m scripts.run_pipeline --train
+uv run python -m scripts.run_pipeline --evaluate
+
+# Or all at once:
+uv run python -m scripts.run_pipeline --all
+```
+
+### Step 4 — View results
+
+| Output | Location |
+|--------|----------|
+| Model metrics | `reports/training_summary.csv` |
+| Plots | `reports/figures/*.png` |
+| MLflow UI | http://localhost:5000 |
+| Postgres predictions | `SELECT * FROM predictions ORDER BY predicted_proba DESC LIMIT 20;` |
+
+---
+
+## Pipeline Steps
+
+```
+UCI Repository  (ucimlrepo id=222)
+      │
+      ▼
+[1] INGEST          src/data/ingest.py
+    Download 45,211 records → data/raw/bank_marketing_raw.csv
+    Load to PostgreSQL raw_features table
+      │
+      ▼
+[2] PREPROCESS      src/data/preprocess.py
+    Drop duration (data leakage)
+    Replace "unknown" with NaN → imputed later by sklearn
+    Encode target: yes→1, no→0
+    Engineer previously_contacted flag (pdays != 999)
+    Stratified 70/15/15 split → data/processed/*.parquet
+    Write to PostgreSQL processed_features table
+      │
+      ▼
+[3] TRAIN           src/models/train.py
+    Build sklearn Pipeline (ColumnTransformer + classifier)
+    5-fold stratified cross-validation
+    Fit 3 models → log metrics/params/artefacts to MLflow
+    Register models in MLflow Model Registry
+    Save .pkl to models/
+    Write to PostgreSQL experiment_results table
+      │
+      ▼
+[4] EVALUATE        src/models/evaluate.py
+    Test-set metrics (ROC-AUC, F1, precision, recall, accuracy)
+    Confusion matrix + ROC curve plots → reports/figures/
+    Threshold analysis CSV → reports/
+    Write predictions to PostgreSQL predictions table
+```
+
+---
+
+## MLflow Experiment Tracking
+
+Every training run logs automatically:
+
+| What | Details |
+|------|---------|
+| **Parameters** | Model hyperparameters, random seed, feature flags |
+| **CV Metrics** | 5-fold cross-validated ROC-AUC, F1, precision, recall |
+| **Val Metrics** | ROC-AUC, F1, precision, recall, accuracy on validation set |
+| **Artefacts** | Self-contained sklearn Pipeline `.pkl` |
+| **Tags** | Model type, `include_duration` flag |
+| **Registry** | `bank_marketing_<model>` — all versions tracked |
+
+Open the MLflow UI: **http://localhost:5000**
+
+---
+
+## Key Findings
+
+1. **Class imbalance is real and important.** Only 11.7% of clients subscribed. Accuracy is misleading — a model predicting "No" always would achieve 88.3% accuracy but find zero subscribers. We optimise ROC-AUC and F1.
+
+2. **Previous campaign success is the strongest signal.** Clients who subscribed in a prior campaign have a 64.7% repeat rate (vs 11.7% baseline). Always re-contact previous subscribers first.
+
+3. **Account balance and age are the top predictors.** Wealthier and middle-aged/retired clients are significantly more likely to invest. Segment marketing lists accordingly.
+
+4. **Contact limits matter.** Success rates drop sharply after 3 contact attempts. A 3-call policy per campaign cycle prevents wasted effort.
+
+5. **Excluding `duration` is essential.** Call duration is only known after the call ends — including it would cause data leakage and a falsely optimistic model useless at deployment time.
+
+6. **Random Forest beats XGBoost narrowly** (AUC 0.8036 vs 0.8022). Both far outperform the logistic regression baseline (AUC 0.7719), validating the value of ensemble methods on this data.
+
+---
+
+## Dataset Limitations
 
 | # | Limitation | Impact |
-|---|---|---|
-| 1 | **Data leakage — `duration`** | Call duration is known only after the call ends. Including it inflates model accuracy unrealistically. It must be dropped for any real-world deployment. |
-| 2 | **Class imbalance (~88/12)** | A naive "always predict no" classifier achieves ~88% accuracy. Standard accuracy is misleading — AUC-ROC, F1-score, and Precision-Recall are required. |
-| 4 | **Temporal / macroeconomic confounding** | Data spans May 2008 – November 2010, covering the global financial crisis. Economic indicators (`euribor3m`, `emp.var.rate`, `nr.employed`) reflect this atypical period. Models may not generalise to other economic environments. |
-| 5 | **Single institution / country** | Data comes from one Portuguese bank. Results cannot be directly generalised to other banks, countries, or cultures. |
-| 6 | **Aggregated contact data** | Multiple calls per campaign are summarised into counts (`campaign`, `pdays`, `previous`). Individual call-level dynamics and conversation content are lost. |
-| 7 | **Age of data** | The dataset is approximately 15 years old. Banking products, customer behaviour, and digital channels have changed substantially since 2008–2010. |
+|---|-----------|--------|
+| 1 | **Data leakage — `duration`** | Call duration is known only after the call ends. Including it inflates model accuracy unrealistically. It is dropped before training. |
+| 2 | **Class imbalance (~88/12)** | A naive "always predict no" classifier achieves ~88% accuracy. Standard accuracy is misleading — ROC-AUC and F1 are used instead. |
+| 3 | **Temporal / macroeconomic confounding** | Data spans May 2008 – November 2010, covering the global financial crisis. Models may not generalise to different economic environments. |
+| 4 | **Single institution / country** | Data comes from one Portuguese bank. Results cannot be directly generalised to other banks, countries, or cultures. |
+| 5 | **Aggregated contact data** | Multiple calls per campaign are summarised into counts (`campaign`, `pdays`, `previous`). Individual call-level dynamics are lost. |
+| 6 | **Age of data** | The dataset is approximately 15 years old. Banking products, customer behaviour, and digital channels have changed substantially since 2008–2010. |
 
 ---
 
-## Q3 — Can We Answer the Classification Question?
+## Ethical Considerations
 
-**Classification question:**
-*Can we predict whether a client will subscribe to a term deposit, based on demographic, financial, and previous campaign details for each client?*
-
-**Yes — the dataset is well-suited for this task.**
-
-The dataset provides:
-
-- **Demographic features:** `age`, `job`, `marital`, `education`
-- **Financial status:** `default` (credit in default), `housing` (housing loan), `loan` (personal loan)
-- **Campaign context:** `contact` (contact type), `month`, `day_of_week`, `campaign` (number of contacts), `pdays`, `previous`, `poutcome`
-- **Macroeconomic indicators:** `emp.var.rate`, `cons.price.idx`, `cons.conf.idx`, `euribor3m`, `nr.employed`
-- **Target variable:** `y` — whether the client subscribed to a term deposit (`yes`/`no`)
-
-The only adjustment needed is **dropping `duration`** (data leakage) before training any model.
+- **Demographic bias:** Age, job, education, and marital status are included as features. The model should be audited for disparate impact across protected groups before any production deployment.
+- **Explainability:** Logistic Regression coefficients provide a transparent baseline. SHAP values should be computed for Random Forest/XGBoost before production use.
+- **Privacy:** No personally identifiable information (PII) is present. All records are anonymised at source by the UCI repository.
+- **Threshold fairness:** Lowering the decision threshold increases recall (contacts more potential subscribers) but increases false positives (wasted calls). The business team must decide the trade-off based on call costs vs. expected revenue — this is not a purely technical decision.
+- **Deployment readiness:** Model performance should be re-evaluated on fresh campaign data before deployment, as client behaviour and economic conditions change over time.
 
 ---
 
-### Key EDA & Modelling Insights
+## Reproducing the Results
 
-- **Macroeconomic context dominates:** `euribor3m`, `nr.employed`, and `emp.var.rate` are the strongest predictors. Clients are more likely to subscribe when interest rates are low and employment is decreasing — suggesting defensive saving behaviour.
-- **Previous campaign success (`poutcome = 'success'`)** is a strong positive signal.
-- **Contact recency matters:** Clients not previously contacted (`pdays = 999`) have lower conversion rates; recent prior contacts improve outcomes.
-- **Demographics:** Students and retirees show higher subscription rates than working-age clients. Younger (18–25) and older (65+) age groups outperform middle-aged groups.
-- **Cellular contact** outperforms telephone landline.
-- **Diminishing returns on campaign contacts:** More than 3–4 calls in a campaign generally reduces conversion rates.
-- **`duration` inflates accuracy** — when included (incorrectly), models appear near-perfect; once removed, realistic performance emerges.
+Everything needed to recreate the full analysis from scratch:
 
-## What value does your project bring to the industry?
-The project is directed towards driving revenue efficiency and cost optimization for the Bank. Instead of running blind marketing campaigns which could be expensive and even result in low return on investment (ROI), the model enables precision targeting, which identifies customers' most likely to subscribe to a term deposit. This will in-turn result in higher conversion rates, lower acquisition costs, reduced customer fatigue and increase in marketing campaign ROI.
+```bash
+# 1. Clone
+git clone <repo-url>
+cd Bank-Marketing_ML_group3
 
-## How will you answer your business question with your chosen datasets?
-a. By using demographic, financial and campaign features as predictors.
-b. By training the classification model to estimate probability of subscription (Yes/No).
-c. Evaluate with accuracy, precision/recall, and ROC-AUC to ensure reliable targeting.
-d. Rank customers by likelihood score.
-e. Prioritize campaign to the top segment only.
-We are simply converting raw customer data into a decision engine that tells the bank exactly who to call, when and why.
+# 2. Install exact locked dependencies
+uv sync
+
+# 3. Configure environment
+cp .env.example .env
+# Default .env works out of the box with Docker
+
+# 4. Build the MLflow image (first time only — cached afterwards)
+docker compose build mlflow
+
+# 5. Start infrastructure
+docker compose up -d postgres mlflow
+
+# 6. Run full pipeline
+uv run python -m scripts.run_pipeline --all
+
+# 7. View results
+# Reports:  reports/figures/  and  reports/training_summary.csv
+# MLflow:   http://localhost:5000
+# Postgres: psql -h localhost -p 5432 -U postgres -d bank_marketing
+```
+
+The `uv.lock` file pins all dependency versions, ensuring reproducible installs across machines.
+
+---
+
+## Changes from Original Project Plan
+
+The following changes were made relative to the initial project plan:
+
+| Change | Reason |
+|--------|--------|
+| Dataset is **16 features** (bank-full), not 20 (bank-additional-full) | `ucimlrepo id=222` returns the bank-full version; bank-additional-full has different economic indicators |
+| MLflow 3.x requires **`--disable-security-middleware`** | MLflow 3.0+ changed networking defaults; needed for Docker port-forwarding |
+| MLflow runs from a **pre-built Docker image** (`docker/mlflow/Dockerfile`) | Avoids `pip install` on every startup — eliminates healthcheck timeouts on fresh machines |
+| `duration` excluded explicitly | Confirmed as data leakage after reviewing feature definitions |
+| Added **4 PostgreSQL tables** | Extended from raw_features only to include processed_features, predictions, experiment_results |
+| Class imbalance handled with **`class_weight='balanced'`** | Simpler and less prone to target leakage than SMOTE |
+
+---
+
+## Team Collaboration
+
+Our team followed these practices:
+
+- **Git workflow:** Feature branches with pull requests; each team member created and reviewed PRs
+- **Daily standups:** Tracked blockers and progress each session
+- **Shared infrastructure:** Docker Compose ensures all team members run identical services
+- **Reproducibility first:** `uv.lock` pins all dependencies; `.env.example` documents all configuration
+- **MLflow tracking:** All experiments logged centrally so the team can compare runs
+
+---
+
+## Team
+
+| Member | Role | Responsibilities | Video |
+|--------|------|-----------------|-------|
+| **Morolake Nwokoro** | Data Preparation & Quality Lead | Data ingestion and validation, cleaning and preprocessing, handling missing values, encoding categorical variables, feature scaling, preparing train/test datasets | [Link to video](#) |
+| **Anthony Chude** | EDA & Feature Engineering Lead | Exploratory data analysis, identifying patterns and correlations, visualisations, detecting class imbalance, designing new features, providing insights to guide modelling | [Link to video](#) |
+| **Greg Ealeifo** | ML Modelling Lead | Implementing baseline and ensemble models, training and tuning, cross-validation, evaluating with precision, recall, F1 and ROC-AUC, selecting the best model | [Link to video](#) |
+| **Olga Drobushko** | ML Pipeline & Documentation Lead | End-to-end pipeline implementation, project structure and codebase organisation, MLflow experiment tracking, Git version control, README and final report | [Link to video](#) |
+
+> Each team member will record a 3–5 minute portfolio video.
+
+---

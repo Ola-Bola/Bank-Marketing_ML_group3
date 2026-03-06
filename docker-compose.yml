@@ -13,8 +13,7 @@ services:
       # Initialise both app DB and MLflow DB on first start
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     ports:
-      # Host port 5433 avoids conflict with any local PostgreSQL on 5432
-      - "5433:5432"
+      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -24,40 +23,42 @@ services:
       - app_network
 
   # ── MLflow tracking server ────────────────────────────────────────────────────
+  # Uses a pre-built image (docker/mlflow/Dockerfile) so all pip installs happen
+  # at `docker compose build` time, not on every startup. This avoids the
+  # healthcheck timing out on fresh machines while packages download.
   mlflow:
-    image: python:3.11-slim
+    build:
+      context: ./docker/mlflow
+      dockerfile: Dockerfile
+    image: bank_marketing_mlflow:latest
     container_name: bank_marketing_mlflow
     depends_on:
       postgres:
         condition: service_healthy
-    environment:
-      MLFLOW_BACKEND_STORE_URI: postgresql://mlflow:mlflow@postgres:5432/mlflow
-      MLFLOW_DEFAULT_ARTIFACT_ROOT: /mlflow/artifacts
-      # MLflow 3.x security middleware: allow all hosts when running inside Docker
-      MLFLOW_ALLOWED_HOSTS: "*"
     volumes:
       - mlflow_artifacts:/mlflow/artifacts
     ports:
       - "5000:5000"
-    # Use list form to avoid shell quoting issues with --allowed-hosts.
-    # --disable-security-middleware is safe inside Docker (no shared-machine risk).
+    # List form avoids shell quoting issues.
+    # --disable-security-middleware is safe inside Docker.
     command:
-      - bash
-      - -c
-      - |
-        pip install mlflow psycopg2-binary --quiet &&
-        mlflow server \
-          --backend-store-uri postgresql://mlflow:mlflow@postgres:5432/mlflow \
-          --default-artifact-root /mlflow/artifacts \
-          --host 0.0.0.0 \
-          --port 5000 \
-          --disable-security-middleware
+      - mlflow
+      - server
+      - --backend-store-uri
+      - postgresql://mlflow:mlflow@postgres:5432/mlflow
+      - --default-artifact-root
+      - /mlflow/artifacts
+      - --host
+      - "0.0.0.0"
+      - --port
+      - "5000"
+      - --disable-security-middleware
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
       interval: 15s
       timeout: 10s
       retries: 8
-      start_period: 60s
+      start_period: 120s
     networks:
       - app_network
 
