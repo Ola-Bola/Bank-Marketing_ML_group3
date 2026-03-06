@@ -1,0 +1,4 @@
+model,run_id,model_name,roc_auc,f1,precision,recall,accuracy
+logistic_regression,660c8fa114ba4c00946db68549613a71,logistic_regression,0.7501,0.3706,0.268,0.6003,0.7616
+random_forest,e7dd575cd65642cab51ea45552321153,random_forest,0.7831,0.4533,0.4364,0.4716,0.867
+xgboost,9a572f9f540f4ce5a3d0a8dbed54c33d,xgboost,0.786,0.4476,0.3763,0.5523,0.8406

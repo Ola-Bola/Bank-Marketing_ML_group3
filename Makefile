@@ -43,6 +43,8 @@ install-dev:
 
 # ── Infrastructure ────────────────────────────────────────────────────────────
 infra-up:
+	@echo "Building MLflow image (no-op if already built)..."
+	docker compose build mlflow
 	@echo "Starting PostgreSQL and MLflow..."
 	docker compose up -d postgres mlflow
 	@echo "Waiting for services to be healthy..."
