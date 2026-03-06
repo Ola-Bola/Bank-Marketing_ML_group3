@@ -78,7 +78,125 @@ Summary
 
 This project impacts both operational and strategic stakeholders. It helps the marketing and sales teams improve campaign efficiency, enables leadership to increase profitability, and enhances customer experience through smarter, data-driven targeting.
 
+Dataset Identification
+This project uses the UCI Bank Marketing Dataset, which is publicly available through the UCI Machine Learning Repository.
 
+# Dataset source:
+https://archive.ics.uci.edu/ml/datasets/bank+marketing
+The dataset contains information related to direct marketing campaigns conducted by a Portuguese banking institution. The goal is to predict whether a client will subscribe to a term deposit.
+Key characteristics of the dataset:
+• Number of records: 41,188 client interactions
+• Number of variables: 20 input features + 1 target variable
+• Target variable: y (whether the client subscribed to a term deposit: yes/no)
+• Time period: Campaign data collected between 2008 and 2010
+• Feature types include:
+Demographic attributes (age, job, marital status, education)
+Financial indicators (housing loan, personal loan, credit default)
+Marketing campaign information (number of contacts, previous outcomes)
+Contact communication details (month, day of week, contact type)
+This dataset was selected because it directly reflects a real-world banking marketing problem and provides sufficient observations for building and evaluating machine learning models.
+
+## Business Context
+The business objective of this project is to help financial institutions improve the effectiveness of marketing campaigns for term deposit products.
+Traditional marketing campaigns often rely on mass phone calls to clients, which can be expensive and inefficient. Many calls are made to customers who are unlikely to subscribe to the product.
+By applying machine learning techniques, this project aims to predict which customers are most likely to subscribe, allowing banks to:
+- focus marketing efforts on high-probability clients;
+- reduce operational costs;
+- increase campaign conversion rates;
+- support data-driven marketing strategies.
+
+## Analytical Plan
+To address the business problem, the project follows a structured machine learning workflow.
+
+1. Exploratory Data Analysis (EDA)
+
+Initial data exploration will be conducted to understand:
+- data distributions;
+- correlations between features;
+- class imbalance in the target variable;
+- potential data quality issues.
+
+Visualizations and summary statistics will help identify patterns and guide feature selection.
+
+2. Data Preprocessing
+
+This stage includes:
+- handling missing values;
+- encoding categorical variables;
+- scaling numerical features where appropriate;
+- splitting the dataset into training and testing sets.
+
+3. Handling Class Imbalance
+
+Since the dataset contains significantly fewer positive subscription cases, techniques such as:
+- class weighting
+- resampling methods (oversampling or undersampling)
+may be applied to improve model performance.
+
+4. Baseline Modelling
+A baseline model (such as Logistic Regression) will be implemented to establish a reference performance level.
+
+5. Model Training
+Additional machine learning models may be tested and compared, such as:
+- Decision Trees
+- Random Forest
+- Gradient Boosting models
+
+6. Model Evaluation
+Model performance will be evaluated using metrics suitable for classification problems, including:
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- ROC-AUC
+
+7. Cross-Validation
+Cross-validation will be used to ensure the model generalizes well and does not overfit the training data.
+
+## Task Breakdown and Team Roles
+To ensure efficient collaboration and accountability, the project tasks are divided among four key roles. Each team member is responsible for a specific stage of the machine learning pipeline while collaborating with others throughout the project.
+
+Data Preparation & Quality Lead (Morolake Nwokoro)
+Responsibilities:
+- data ingestion and dataset validation;
+- data cleaning and preprocessing;
+- handling missing values and inconsistent records;
+- encoding categorical variables;
+- feature scaling and transformation;
+- preparing training and test datasets;
+- nsuring data quality throughout the pipeline.
+This role ensures that the dataset is clean, reliable, and ready for analysis and modelling.
+
+Exploratory Data Analysis (EDA) & Feature Engineering Lead (Anthony Chude)
+Responsibilities:
+- performing exploratory data analysis (EDA);
+- identifying patterns, correlations, and key variables;
+- creating visualizations to understand data distributions;
+- detecting class imbalance and potential biases;
+- designing new features to improve model performance;
+- providing insights that guide model development;
+This role helps uncover insights from the data and informs feature selection.
+
+Machine Learning Modelling Lead (Greg Ealeifo)
+Responsibilities:
+- mplementing baseline models;
+- training and tuning machine learning models;
+- comparing different algorithms;
+- performing cross-validation;
+- evaluating models using metrics such as precision, recall, F1-score, and ROC-AUC;
+- selecting the best performing model.
+This role focuses on developing predictive models and ensuring strong performance.
+
+ML Pipeline & Documentation Lead (Olga Drobushko)
+Responsibilities:
+- implementing the machine learning pipeline;
+- organizing project structure and codebase;
+- integrating experiment tracking and reproducibility tools;
+- managing version control using Git;
+- writing and maintaining the README documentation;
+- preparing project presentation and final report.
+
+This role ensures the project is reproducible, well-documented, and clearly communicated.
 ## Setup
 
 ```bash
@@ -107,6 +225,12 @@ The notebook kernel is registered as **"Python (bank_marketing)"** — select it
 
 **Verdict:** The dataset is clean in the traditional sense (no nulls, no duplicates) but requires careful handling of encoded missing values, outliers, class imbalance, and the leakage variable `duration`.
 
+##  After deeper research, below are the data values
+##  Column ,   No of  missing_count,  missing_pct
+    job,            288,                 0.64
+    education,      1857,                4.11
+    contact,        13020,               28.8
+    poutcome,       36959,               81.75
 ---
 
 ## Q2 — What Are the Limitations?
